@@ -1,0 +1,13 @@
+CREATE TABLE Autores (
+    id_autor INT PRIMARY KEY,
+    nombre_autor VARCHAR(100),
+    nacionalidad VARCHAR(50)
+);
+CREATE TABLE Libros (
+    id_libro INT PRIMARY KEY,
+    titulo_libro VARCHAR(200),
+    año_publicacion INT,
+    id_autor INT,
+    FOREIGN KEY (id_autor) REFERENCES Autores(id_autor)
+);
+
