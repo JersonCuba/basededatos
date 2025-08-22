@@ -1,0 +1,6 @@
+Insertar datos
+
+INSERT INTO Autores VALUES
+(1, 'Gabriel García Márquez', 'Colombiano'),
+(2, 'Jane Austen', 'Británica'),
+(3, 'George Orwell', 'Británico');
