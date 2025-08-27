@@ -1,0 +1,6 @@
+CREATE TABLE Autores (
+    id_autor INT PRIMARY KEY,
+    nombre_autor VARCHAR(100),
+    nacionalidad VARCHAR(50)
+);
+
