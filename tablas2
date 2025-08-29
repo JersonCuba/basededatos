@@ -4,7 +4,7 @@ CREATE TABLE Autores (
     nacionalidad VARCHAR(50)
 );
 
--- Insertar datos
+-- Insertar dato
 INSERT INTO Autores VALUES
 (1, 'Gabriel García Márquez', 'Colombiano'),
 (2, 'Jane Austen', 'Británica'),
