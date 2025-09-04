@@ -1,0 +1,25 @@
+-- Crear tabla libros
+CREATE TABLE libros (
+    id INT PRIMARY KEY,
+    titulo VARCHAR(100),
+    autor VARCHAR(50),
+    anio_publicacion INT
+);
+
+-- Insertar datos en libros
+INSERT INTO libros (id, titulo, autor, anio_publicacion) VALUES
+(1, 'Cien años de soledad', 'Gabriel García Márquez', 1967),
+(2, 'Don Quijote de la Mancha', 'Miguel de Cervantes', NULL),
+(3, 'La sombra del viento', 'Carlos Ruiz Zafón', 2001),
+(4, '1984', 'George Orwell', 1949),
+(5, 'El amor en los tiempos del cólera', 'Gabriel García Márquez', NULL),
+(6, 'Ficciones', 'Jorge Luis Borges', 1944),
+(7, 'Rayuela', 'Julio Cortázar', 1963),
+(8, 'El nombre de la rosa', 'Umberto Eco', 1980),
+(9, 'La casa de los espíritus', 'Isabel Allende', 1982),
+(10, 'El Principito', 'Antoine de Saint-Exupéry', NULL);
+
+-- Consulta para obtener libros cuyo título contiene la palabra 'el'
+SELECT titulo, autor
+FROM libros
+WHERE titulo LIKE '%el%';
