@@ -1,0 +1,25 @@
+-- Crear tabla libros
+CREATE TABLE libros (
+    id INT PRIMARY KEY,
+    titulo VARCHAR(100),
+    autor VARCHAR(50),
+    anio_publicacion INT
+);
+
+-- Insertar datos en libros
+INSERT INTO libros (id, titulo, autor, anio_publicacion) VALUES
+(1, 'Cien años de soledad', 'Gabriel García Márquez', 1967),
+(2, 'Don Quijote de la Mancha', 'Miguel de Cervantes', 1605),
+(3, 'La sombra del viento', 'Carlos Ruiz Zafón', 2001),
+(4, '1984', 'George Orwell', 1949),
+(5, 'El amor en los tiempos del cólera', 'Gabriel García Márquez', 1985),
+(6, 'Ficciones', 'Jorge Luis Borges', 1944),
+(7, 'Rayuela', 'Julio Cortázar', 1963),
+(8, 'El nombre de la rosa', 'Umberto Eco', 1980),
+(9, 'La casa de los espíritus', 'Isabel Allende', 1982),
+(10, 'El Principito', 'Antoine de Saint-Exupéry', 1943);
+
+-- Consulta para obtener libros publicados entre 1940 y 1980
+SELECT titulo, autor, anio_publicacion
+FROM libros
+WHERE anio_publicacion BETWEEN 1940 AND 1980;
