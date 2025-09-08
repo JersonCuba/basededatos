@@ -1,0 +1,21 @@
+INSERT INTO Libros VALUES 
+(1, 'Cien Años de Soledad', 'Gabriel García Márquez', 1967, TRUE),
+(2, 'El Quijote', 'Miguel de Cervantes', 1605, FALSE),
+(3, 'La Ciudad y los Perros', 'Mario Vargas Llosa', 1963, TRUE),
+(4, 'El Principito', 'Antoine de Saint-Exupéry', 1943, TRUE);
+
+INSERT INTO Usuarios VALUES
+(1, 'Ana Torres', 'Ingeniería'),
+(2, 'Luis Pérez', 'Derecho'),
+(3, 'María López', 'Psicología');
+
+INSERT INTO Prestamos VALUES
+(1, 2, 1, '2025-09-01', '2025-09-07'),
+(2, 3, 2, '2025-09-03', NULL);
+
+
+SELECT u.nombre, u.carrera, l.titulo
+FROM Prestamos p
+INNER JOIN Libros l ON p.id_libro = l.id_libro
+INNER JOIN Usuarios u ON p.id_usuario = u.id_usuario
+WHERE u.carrera = 'Psicología';
