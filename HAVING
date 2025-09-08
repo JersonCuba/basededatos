@@ -1,0 +1,8 @@
+Usuarios con préstamos activos mayores a 1
+
+SELECT u.nombre, COUNT(p.id_prestamo) AS prestamos_activos
+FROM Prestamos p
+INNER JOIN Usuarios u ON p.id_usuario = u.id_usuario
+WHERE p.fecha_devolucion IS NULL
+GROUP BY u.nombre
+HAVING COUNT(p.id_prestamo) > 1;
