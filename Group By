@@ -1,0 +1,6 @@
+Contar préstamos por carrera de los usuarios 
+
+SELECT u.carrera, COUNT(p.id_prestamo) AS prestamos_totales
+FROM Prestamos p
+INNER JOIN Usuarios u ON p.id_usuario = u.id_usuario
+GROUP BY u.carrera;
