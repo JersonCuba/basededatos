@@ -1,0 +1,8 @@
+Mostrar si un libro esta disponible o prestado 
+
+SELECT titulo,
+       CASE 
+           WHEN disponible = TRUE THEN 'Disponible'
+           ELSE 'Prestado'
+       END AS estado
+FROM Libros;
