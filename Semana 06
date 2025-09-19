@@ -83,4 +83,4 @@ SELECT nombre FROM Usuarios WHERE carrera = 'Psicología';
 -- UNION ALL mantiene duplicados
 SELECT nombre FROM Usuarios WHERE carrera = 'Ingeniería'
 UNION ALL
-SELECT nombre FROM Usuarios WHERE carrera = 'Psicología';
+SELECT nombre FROM Usuarios WHERE carrera = 'Psicología'
