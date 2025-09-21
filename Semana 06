@@ -85,4 +85,3 @@ SELECT nombre FROM Usuarios WHERE carrera = 'Ingeniería'
 UNION ALL
 SELECT nombre FROM Usuarios WHERE carrera = 'Psicología'
 
-;
