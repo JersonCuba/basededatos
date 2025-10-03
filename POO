@@ -1,3 +1,5 @@
+expo 
+
 // Clase abstracta
 abstract class Animal {
     // Método abstracto (sin cuerpo)
