@@ -1,0 +1,21 @@
+// Clase abstracta
+abstract class Animal {
+    // Método abstracto (sin cuerpo)
+    public abstract void sonido();
+}
+
+// Subclase concreta Perro
+class Perro extends Animal {
+    @Override
+    public void sonido() {
+        System.out.println("El perro ladra");
+    }
+}
+
+// Subclase concreta Gato
+class Gato extends Animal {
+    @Override
+    public void sonido() {
+        System.out.println("El gato maúlla");
+    }
+}
