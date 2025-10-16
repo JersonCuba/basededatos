@@ -1,0 +1,32 @@
+
+-- ==============================================
+-- USAR BASE DE DATOS
+-- ==============================================
+USE BibliotecaDB_Muchos;
+
+-- ==============================================
+-- PROCEDIMIENTO 1: Mostrar los libros de un autor
+-- ==============================================
+DELIMITER $$
+
+CREATE PROCEDURE MostrarLibrosPorAutor(IN nombre_autor VARCHAR(100))
+BEGIN
+    SELECT l.titulo AS Libro, a.nombre AS Autor
+    FROM Libros l
+    WHERE l.id_libro IN (
+        SELECT id_libro
+        FROM LibroAutor la
+        WHERE la.id_autor = (
+            SELECT id_autor
+            FROM Autores
+            WHERE nombre = nombre_autor
+        )
+    );
+END$$
+
+DELIMITER ;
+
+-- ==============================================
+-- EJECUTAR EL PROCEDIMIENTO
+-- ==============================================
+CALL MostrarLibrosPorAutor('Gabriel García Márquez');
