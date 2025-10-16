@@ -1,0 +1,110 @@
+-- ==============================================
+-- CREAR BASE DE DATOS
+-- ==============================================
+CREATE DATABASE BibliotecaDB_Muchos;
+USE BibliotecaDB_Muchos;
+
+-- ==============================================
+-- TABLAS PRINCIPALES
+-- ==============================================
+CREATE TABLE Libros (
+    id_libro INT PRIMARY KEY,
+    titulo VARCHAR(100)
+);
+
+CREATE TABLE Autores (
+    id_autor INT PRIMARY KEY,
+    nombre VARCHAR(100)
+);
+
+-- ==============================================
+-- TABLA INTERMEDIA (RELACIÓN MUCHOS A MUCHOS)
+-- ==============================================
+CREATE TABLE LibroAutor (
+    id_libro INT,
+    id_autor INT,
+    PRIMARY KEY (id_libro, id_autor),
+    FOREIGN KEY (id_libro) REFERENCES Libros(id_libro),
+    FOREIGN KEY (id_autor) REFERENCES Autores(id_autor)
+);
+
+-- ==============================================
+-- INSERTAR DATOS
+-- ==============================================
+INSERT INTO Libros VALUES
+(1, 'Cien Años de Soledad'),
+(2, 'La Ciudad y los Perros'),
+(3, 'El Quijote');
+
+INSERT INTO Autores VALUES
+(1, 'Gabriel García Márquez'),
+(2, 'Mario Vargas Llosa'),
+(3, 'Miguel de Cervantes');
+
+INSERT INTO LibroAutor VALUES
+(1, 1),  -- Cien Años de Soledad → García Márquez
+(2, 2),  -- La Ciudad y los Perros → Vargas Llosa
+(3, 3),  -- El Quijote → Cervantes
+(2, 1);  -- La Ciudad y los Perros → también García Márquez
+
+-- ==============================================
+-- CONSULTAS CON SUBCONSULTAS
+-- ==============================================
+
+-- 1️⃣ Autores que escribieron "La Ciudad y los Perros"
+SELECT nombre
+FROM Autores
+WHERE id_autor IN (
+    SELECT id_autor
+    FROM LibroAutor
+    WHERE id_libro = (
+        SELECT id_libro
+        FROM Libros
+        WHERE titulo = 'La Ciudad y los Perros'
+    )
+);
+
+-- 2️⃣ Libros escritos por "Gabriel García Márquez"
+SELECT titulo
+FROM Libros
+WHERE id_libro IN (
+    SELECT id_libro
+    FROM LibroAutor
+    WHERE id_autor = (
+        SELECT id_autor
+        FROM Autores
+        WHERE nombre = 'Gabriel García Márquez'
+    )
+);
+
+-- 3️⃣ Contar cuántos libros ha escrito cada autor
+SELECT nombre,
+       (SELECT COUNT(*)
+        FROM LibroAutor la
+        WHERE la.id_autor = a.id_autor) AS total_libros
+FROM Autores a;
+
+-- 4️⃣ Contar cuántos autores tiene cada libro
+SELECT titulo,
+       (SELECT COUNT(*)
+        FROM LibroAutor la
+        WHERE la.id_libro = l.id_libro) AS total_autores
+FROM Libros l;
+
+-- 5️⃣ Mostrar autores que tienen más de un libro publicado
+SELECT nombre
+FROM Autores a
+WHERE (SELECT COUNT(*) 
+       FROM LibroAutor la 
+       WHERE la.id_autor = a.id_autor) > 1;
+
+-- 6️⃣ Mostrar libros que tienen más de un autor
+SELECT titulo
+FROM Libros l
+WHERE (SELECT COUNT(*) 
+       FROM LibroAutor la 
+       WHERE la.id_libro = l.id_libro) > 1;
+
+-- ==============================================
+-- FIN DEL SCRIPT
+-- ==============================================
