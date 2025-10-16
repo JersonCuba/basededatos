@@ -1,0 +1,19 @@
+CREATE DATABASE BibliotecaDB;
+USE BibliotecaDB;
+
+-- Tabla principal (1)
+CREATE TABLE Usuarios (
+    id_usuario INT PRIMARY KEY,
+    nombre VARCHAR(100),
+    carrera VARCHAR(50)
+);
+
+-- Tabla secundaria (N)
+CREATE TABLE Prestamos (
+    id_prestamo INT PRIMARY KEY,
+    id_usuario INT,
+    id_libro INT,
+    fecha_prestamo DATE,
+    fecha_devolucion DATE,
+    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario)
+);
