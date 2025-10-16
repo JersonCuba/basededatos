@@ -1,0 +1,121 @@
+-- ==============================================
+-- USAR LA BASE DE DATOS
+-- ==============================================
+USE BibliotecaDB_Muchos;
+
+-- ==============================================
+-- INSERTAR NUEVOS DATOS
+-- ==============================================
+-- Insertar nuevo autor
+INSERT INTO Autores (id_autor, nombre)
+VALUES (4, 'Julio Cortázar');
+
+-- Insertar nuevo libro
+INSERT INTO Libros (id_libro, titulo)
+VALUES (4, 'Rayuela');
+
+-- Relacionar libro con autor
+INSERT INTO LibroAutor (id_libro, id_autor)
+VALUES (4, 4);
+
+-- Verificar inserción
+SELECT * FROM Libros;
+SELECT * FROM Autores;
+SELECT * FROM LibroAutor;
+
+-- ==============================================
+-- ACTUALIZAR DATOS (UPDATE)
+-- ==============================================
+-- Cambiar el nombre de un autor
+UPDATE Autores
+SET nombre = 'Julio Florencio Cortázar'
+WHERE id_autor = 4;
+
+-- Cambiar el título de un libro
+UPDATE Libros
+SET titulo = 'Rayuela (Edición Revisada)'
+WHERE id_libro = 4;
+
+-- Verificar actualización
+SELECT * FROM Libros WHERE id_libro = 4;
+SELECT * FROM Autores WHERE id_autor = 4;
+
+-- ==============================================
+-- ELIMINAR DATOS (DELETE)
+-- ==============================================
+-- Eliminar la relación del libro con el autor
+DELETE FROM LibroAutor
+WHERE id_libro = 4 AND id_autor = 4;
+
+-- Eliminar el libro "Rayuela"
+DELETE FROM Libros
+WHERE id_libro = 4;
+
+-- Eliminar el autor "Julio Florencio Cortázar"
+DELETE FROM Autores
+WHERE id_autor = 4;
+
+-- Verificar eliminación
+SELECT * FROM Libros;
+SELECT * FROM Autores;
+
+-- ==============================================
+-- FUNCIÓN DE VENTANA (OVER)
+-- ==============================================
+-- Mostrar todos los libros con un número secuencial
+SELECT 
+    titulo,
+    ROW_NUMBER() OVER (ORDER BY titulo ASC) AS numero_fila
+FROM Libros;
+
+-- Mostrar autores y cuántos libros tienen con COUNT() OVER
+SELECT 
+    a.nombre AS Autor,
+    COUNT(la.id_libro) OVER (PARTITION BY a.id_autor) AS Total_Libros
+FROM Autores a
+LEFT JOIN LibroAutor la ON a.id_autor = la.id_autor;
+
+-- Mostrar ranking de libros por ID
+SELECT 
+    titulo,
+    RANK() OVER (ORDER BY id_libro ASC) AS posicion
+FROM Libros;
+
+-- ==============================================
+-- PIVOT (Tabla dinámica)
+-- ==============================================
+-- Crear una tabla auxiliar para ejemplo de PIVOT
+CREATE TABLE Prestamos (
+    id_prestamo INT PRIMARY KEY,
+    id_usuario INT,
+    id_libro INT,
+    fecha_prestamo DATE
+);
+
+INSERT INTO Prestamos VALUES
+(1, 1, 1, '2025-09-01'),
+(2, 1, 2, '2025-09-10'),
+(3, 2, 2, '2025-09-12'),
+(4, 2, 3, '2025-09-15'),
+(5, 3, 3, '2025-09-20');
+
+-- Ejemplo de PIVOT (solo en SQL Server)
+-- Mostrar cantidad de préstamos por usuario
+-- En MySQL, se puede simular con CASE + SUM
+SELECT 
+    id_usuario,
+    SUM(CASE WHEN id_libro = 1 THEN 1 ELSE 0 END) AS Libro_1,
+    SUM(CASE WHEN id_libro = 2 THEN 1 ELSE 0 END) AS Libro_2,
+    SUM(CASE WHEN id_libro = 3 THEN 1 ELSE 0 END) AS Libro_3
+FROM Prestamos
+GROUP BY id_usuario;
+
+-- En SQL Server, se podría hacer así:
+-- SELECT * FROM (
+--   SELECT id_usuario, id_libro
+--   FROM Prestamos
+-- ) AS src
+-- PIVOT (
+--   COUNT(id_libro)
+--   FOR id_libro IN ([1], [2], [3])
+-- ) AS pvt;
