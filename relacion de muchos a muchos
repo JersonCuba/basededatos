@@ -4,9 +4,9 @@
 CREATE DATABASE BibliotecaDB_Muchos;
 USE BibliotecaDB_Muchos;
 
--- ==============================================
+-- =============================================
 -- TABLAS PRINCIPALES
--- ==============================================
+-- =============================================
 CREATE TABLE Libros (
     id_libro INT PRIMARY KEY,
     titulo VARCHAR(100)
