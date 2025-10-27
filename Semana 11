@@ -89,3 +89,9 @@ FROM Prestamos
 GROUP BY id_libro
 HAVING SUM(dias_prestamo) > 10;
 
+-- 1️⃣2️⃣ Mostrar usuarios cuyo promedio de días prestados sea mayor a 6
+SELECT id_usuario, AVG(dias_prestamo) AS Promedio_Dias
+FROM Prestamos
+GROUP BY id_usuario
+HAVING AVG(dias_prestamo) > 6;
+
