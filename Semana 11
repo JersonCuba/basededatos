@@ -1,0 +1,96 @@
+-- ==============================================
+-- USAR BASE DE DATOS
+-- ==============================================
+USE BibliotecaDB_Muchos;
+
+-- ==============================================
+-- AGREGAR TABLA DE PRÉSTAMOS PARA EL ANÁLISIS
+-- ==============================================
+CREATE TABLE IF NOT EXISTS Prestamos (
+    id_prestamo INT PRIMARY KEY,
+    id_usuario INT,
+    id_libro INT,
+    fecha_prestamo DATE,
+    dias_prestamo INT,
+    FOREIGN KEY (id_libro) REFERENCES Libros(id_libro)
+);
+
+-- Insertar datos de ejemplo
+INSERT INTO Prestamos VALUES
+(1, 1, 1, '2025-09-01', 7),
+(2, 1, 2, '2025-09-10', 5),
+(3, 2, 2, '2025-09-12', 10),
+(4, 2, 3, '2025-09-15', 3),
+(5, 3, 3, '2025-09-20', 8);
+
+-- ==============================================
+-- FUNCIONES AGREGADAS
+-- ==============================================
+
+-- 1️⃣ Contar cuántos préstamos hay en total
+SELECT COUNT(*) AS Total_Prestamos
+FROM Prestamos;
+
+-- 2️⃣ Calcular el promedio de días de préstamo
+SELECT AVG(dias_prestamo) AS Promedio_Dias
+FROM Prestamos;
+
+-- 3️⃣ Mostrar el préstamo con mayor duración
+SELECT MAX(dias_prestamo) AS Mayor_Duracion
+FROM Prestamos;
+
+-- 4️⃣ Mostrar el préstamo con menor duración
+SELECT MIN(dias_prestamo) AS Menor_Duracion
+FROM Prestamos;
+
+-- 5️⃣ Sumar el total de días prestados (suma general)
+SELECT SUM(dias_prestamo) AS Total_Dias_Prestados
+FROM Prestamos;
+
+-- ==============================================
+-- GROUP BY – AGRUPAR Y RESUMIR DATOS
+-- ==============================================
+
+-- 6️⃣ Total de préstamos por usuario
+SELECT id_usuario, COUNT(*) AS Total_Prestamos
+FROM Prestamos
+GROUP BY id_usuario;
+
+-- 7️⃣ Promedio de duración de préstamos por usuario
+SELECT id_usuario, AVG(dias_prestamo) AS Promedio_Dias
+FROM Prestamos
+GROUP BY id_usuario;
+
+-- 8️⃣ Total de días prestados por cada libro
+SELECT id_libro, SUM(dias_prestamo) AS Total_Dias
+FROM Prestamos
+GROUP BY id_libro;
+
+-- 9️⃣ Máximo y mínimo de duración por usuario
+SELECT id_usuario,
+       MAX(dias_prestamo) AS Maximo,
+       MIN(dias_prestamo) AS Minimo
+FROM Prestamos
+GROUP BY id_usuario;
+
+-- ==============================================
+-- HAVING – FILTRAR RESULTADOS AGRUPADOS
+-- ==============================================
+
+-- 🔟 Mostrar solo usuarios con más de 1 préstamo
+SELECT id_usuario, COUNT(*) AS Total_Prestamos
+FROM Prestamos
+GROUP BY id_usuario
+HAVING COUNT(*) > 1;
+
+-- 1️⃣1️⃣ Mostrar solo libros cuyo total de días prestados supere 10 días
+SELECT id_libro, SUM(dias_prestamo) AS Total_Dias
+FROM Prestamos
+GROUP BY id_libro
+HAVING SUM(dias_prestamo) > 10;
+
+-- 1️⃣2️⃣ Mostrar usuarios cuyo promedio de días prestados sea mayor a 6
+SELECT id_usuario, AVG(dias_prestamo) AS Promedio_Dias
+FROM Prestamos
+GROUP BY id_usuario
+HAVING AVG(dias_prestamo) > 6;
