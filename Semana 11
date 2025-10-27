@@ -3,9 +3,9 @@
 -- ==============================================
 USE BibliotecaDB_Muchos;
 
--- ==============================================
+-- =============================================
 -- AGREGAR TABLA DE PRÉSTAMOS PARA EL ANÁLISIS
--- ==============================================
+-- =============================================
 CREATE TABLE IF NOT EXISTS Prestamos (
     id_prestamo INT PRIMARY KEY,
     id_usuario INT,
