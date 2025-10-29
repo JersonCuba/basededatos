@@ -7,13 +7,3 @@ Se aplican a columnas y devuelven un solo valor como resultado (por grupo o tota
 🔹 GROUP BY
 La cláusula GROUP BY se utiliza para agrupar registros que tienen el mismo valor en una o más columnas.
 Permite aplicar funciones agregadas por grupo, en lugar de sobre toda la tabla.
-
-🔹 HAVING
-
-La cláusula HAVING se usa para filtrar los resultados agrupados creados con GROUP BY.
-A diferencia de WHERE, que filtra filas antes del agrupamiento, HAVING filtra los grupos resultantes.
-
-Diferencia entre WHERE y HAVING
-
-WHERE	Antes del GROUP BY	Filas individuales
-HAVING	Después del GROUP BY	Grupos de resultados
