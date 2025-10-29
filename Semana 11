@@ -83,11 +83,6 @@ FROM Prestamos
 GROUP BY id_usuario
 HAVING COUNT(*) > 1;
 
--- 1️⃣1️⃣ Mostrar solo libros cuyo total de días prestados supere 10 días
-SELECT id_libro, SUM(dias_prestamo) AS Total_Dias
-FROM Prestamos
-GROUP BY id_libro
-HAVING SUM(dias_prestamo) > 10;
 
 -- 1️⃣2️⃣ Mostrar usuarios cuyo promedio de días prestados sea mayor a 6
 SELECT id_usuario, AVG(dias_prestamo) AS Promedio_Dias
